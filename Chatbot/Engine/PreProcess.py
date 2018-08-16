@@ -38,14 +38,14 @@ def pre_process():
     word2count=Counter(tokens)
 
     # Creating two dictionaries that map the questions words and the answers words to a unique integer
-    threshold_questions = 20
+    threshold_questions = 15
     questionswords2int = {}
     word_number = 0
     for word, count in word2count.items():
         if count >= threshold_questions:
             questionswords2int[word] = word_number
             word_number += 1
-    threshold_answers = 20
+    threshold_answers = 15
     answerswords2int = {}
     word_number = 0
     for word, count in word2count.items():
@@ -69,7 +69,6 @@ def pre_process():
         clean_answers[i] += ' <EOS>'
 
     answersints2word = {w_i: w for w, w_i in answerswords2int.items()}
-    questionints2word = {w_i: w for w, w_i in questionswords2int.items()}
 
 
     # Translating all the questions and the answers into integers
@@ -98,7 +97,7 @@ def pre_process():
 
     questions_into_int.sort(key=len)
     answers_into_int.sort(key=len)
-    return (questionswords2int, answerswords2int,questions_into_int,answers_into_int)
+    return (questionswords2int, answerswords2int,questions_into_int,answers_into_int,answersints2word)
 
 
 

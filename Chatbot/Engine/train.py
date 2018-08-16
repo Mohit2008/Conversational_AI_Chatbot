@@ -15,12 +15,12 @@ from PreProcess import pre_process
 
 # Setting the Hyperparameters
 epochs = 100
-batch_size = 64
-rnn_size = 512
+batch_size = 32
+rnn_size = 1024
 num_layers = 3
-encoding_embedding_size = 512
-decoding_embedding_size = 512
-learning_rate = 0.01
+encoding_embedding_size = 1024
+decoding_embedding_size = 1024
+learning_rate = 0.001
 learning_rate_decay = 0.9
 min_learning_rate = 0.0001
 keep_probability = 0.5
@@ -39,7 +39,7 @@ sequence_length = tf.placeholder_with_default(25, None, name = 'sequence_length'
 input_shape = tf.shape(inputs)
  
 # Getting the training and test predictions
-(questionswords2int, answerswords2int,sorted_clean_questions,sorted_clean_answers)=pre_process()
+(questionswords2int, answerswords2int,sorted_clean_questions,sorted_clean_answers,answersints2word)=pre_process()
 training_predictions, test_predictions = md.seq2seq_model(tf.reverse(inputs, [-1]),
                                                        targets,
                                                        keep_prob,
@@ -91,7 +91,7 @@ batch_index_check_validation_loss = ((len(training_questions)) // batch_size // 
 total_training_loss_error = 0
 list_validation_loss_error = []
 early_stopping_check = 0
-early_stopping_stop = 1000
+early_stopping_stop = 100
 checkpoint = "chatbot_weights.ckpt" # For Windows users, replace this line of code by: checkpoint = "./chatbot_weights.ckpt"
 session.run(tf.global_variables_initializer())
 for epoch in range(1, epochs + 1):
