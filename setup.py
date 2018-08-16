@@ -74,6 +74,8 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
         'cmd2>=0.7.5',
+        'numpy',
+        'tensorflow'
     ],
 
     # List additional groups of dependencies here (e.g. development

@@ -1,3 +1,5 @@
 .DS_Store
 venv/*
 logs/*
+data/*
+Chatbot/__pycache__/*
