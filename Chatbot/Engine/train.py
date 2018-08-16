@@ -1,8 +1,16 @@
 import os
 import sys
+import time
 import numpy as np
+import warnings
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+warnings.filterwarnings("ignore")
 import tensorflow as tf
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir))
+import Model as md
+from PreProcess import pre_process
+
+
 
 
 # Setting the Hyperparameters
@@ -22,7 +30,7 @@ tf.reset_default_graph()
 session = tf.InteractiveSession()
  
 # Loading the model inputs
-inputs, targets, lr, keep_prob = model_inputs()
+inputs, targets, lr, keep_prob = md.model_inputs()
  
 # Setting the sequence length
 sequence_length = tf.placeholder_with_default(25, None, name = 'sequence_length')
@@ -31,7 +39,8 @@ sequence_length = tf.placeholder_with_default(25, None, name = 'sequence_length'
 input_shape = tf.shape(inputs)
  
 # Getting the training and test predictions
-training_predictions, test_predictions = seq2seq_model(tf.reverse(inputs, [-1]),
+(questionswords2int, answerswords2int,sorted_clean_questions,sorted_clean_answers)=pre_process()
+training_predictions, test_predictions = md.seq2seq_model(tf.reverse(inputs, [-1]),
                                                        targets,
                                                        keep_prob,
                                                        batch_size,

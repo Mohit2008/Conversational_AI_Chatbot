@@ -3,3 +3,5 @@ venv/*
 logs/*
 data/*
 Chatbot/__pycache__/*
+Chatbot.egg-info/*
+Chatbot/Engine/__pycache__/*
