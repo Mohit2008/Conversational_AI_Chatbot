@@ -1,7 +1,7 @@
 .DS_Store
 venv/*
 logs/*
-data/*
+data/*.txt
 Chatbot/__pycache__/*
 Chatbot.egg-info/*
 Chatbot/Engine/__pycache__/*

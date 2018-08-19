@@ -34,6 +34,7 @@ def pre_process():
             clean_questions.append(id2line[conversation[i]])
             clean_answers.append(id2line[conversation[i+1]])
 
+
     tokens=[word for text in id2line.values() for word in text.split()]
     word2count=Counter(tokens)
 
