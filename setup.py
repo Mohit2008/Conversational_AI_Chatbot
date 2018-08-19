@@ -75,7 +75,8 @@ setup(
     install_requires=[
         'cmd2>=0.7.5',
         #'numpy',
-        'tensorflow==1.0.0'
+        'tensorflow==1.0.0',
+        'tensorflow-gpu==1.0.0'
     ],
 
     # List additional groups of dependencies here (e.g. development
