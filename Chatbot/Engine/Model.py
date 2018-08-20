@@ -1,6 +1,5 @@
 import os
 import sys
-import numpy as np
 import tensorflow as tf
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir))
 
@@ -12,8 +11,7 @@ def model_inputs():
     lr = tf.placeholder(tf.float32, name = 'learning_rate')
     keep_prob = tf.placeholder(tf.float32, name = 'keep_prob')
     return inputs, targets, lr, keep_prob
-
-
+ 
 # Preprocessing the targets
 def preprocess_targets(targets, word2int, batch_size):
     left_side = tf.fill([batch_size, 1], word2int['<SOS>'])
@@ -50,7 +48,7 @@ def decode_training_set(encoder_state, decoder_cell, decoder_embedded_input, seq
                                                                                                               scope = decoding_scope)
     decoder_output_dropout = tf.nn.dropout(decoder_output, keep_prob)
     return output_function(decoder_output_dropout)
-
+ 
 # Decoding the test/validation set
 def decode_test_set(encoder_state, decoder_cell, decoder_embeddings_matrix, sos_id, eos_id, maximum_length, num_words, decoding_scope, output_function, keep_prob, batch_size):
     attention_states = tf.zeros([batch_size, 1, decoder_cell.output_size])
@@ -110,12 +108,12 @@ def decoder_rnn(decoder_embedded_input, decoder_embeddings_matrix, encoder_state
  
 # Building the seq2seq model
 def seq2seq_model(inputs, targets, keep_prob, batch_size, sequence_length, answers_num_words, questions_num_words, encoder_embedding_size, decoder_embedding_size, rnn_size, num_layers, questionswords2int):
-    preprocessed_targets = preprocess_targets(targets, questionswords2int, batch_size)
     encoder_embedded_input = tf.contrib.layers.embed_sequence(inputs,
                                                               answers_num_words + 1,
                                                               encoder_embedding_size,
                                                               initializer = tf.random_uniform_initializer(0, 1))
     encoder_state = encoder_rnn(encoder_embedded_input, rnn_size, num_layers, keep_prob, sequence_length)
+    preprocessed_targets = preprocess_targets(targets, questionswords2int, batch_size)
     decoder_embeddings_matrix = tf.Variable(tf.random_uniform([questions_num_words + 1, decoder_embedding_size], 0, 1))
     decoder_embedded_input = tf.nn.embedding_lookup(decoder_embeddings_matrix, preprocessed_targets)
     training_predictions, test_predictions = decoder_rnn(decoder_embedded_input,
@@ -129,6 +127,5 @@ def seq2seq_model(inputs, targets, keep_prob, batch_size, sequence_length, answe
                                                          keep_prob,
                                                          batch_size)
     return training_predictions, test_predictions
-
 
 

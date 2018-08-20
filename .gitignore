@@ -6,3 +6,7 @@ Chatbot/__pycache__/*
 Chatbot.egg-info/*
 Chatbot/Engine/__pycache__/*
 Chatbot/Engine/__pycache__/*.pyc
+Chatbot/Engine/*.ckpt*
+data/*.ckpt*
+Chatbot/Engine/checkpoint
+data/checkpoint
