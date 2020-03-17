@@ -1,1 +1,1 @@
-# Sequence to Sequence chatbot trained using Recurrent neural network
+# Sequence to Sequence conversational chatbot trained using Recurrent neural network
